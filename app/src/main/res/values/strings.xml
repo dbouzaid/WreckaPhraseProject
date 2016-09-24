@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Wreck a Phrase Project</string>
+    <string name="menu">Menu</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="enter_phrase">Enter phrase...</string>
+    <string name="submit">Submit</string>
+    <string name="output_here">Output here</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_phrase_input">A phrase is required</string><string name="empty_word_input">A word is required</string>
+    <string name="replace_me">Replace me</string>
+    <string name="input_new_word">Input your new word...</string>
+    <string name="cancel">Cancel</string>
+    <string name="get_synonym">Get Synonym</string>
+    <string name="enter_a_phrase_to_wreck">Enter a Phrase to Wreck</string>
+    <string name="title">Wreck a Phrase</string>
+    <string name="finished">Finished</string>
+    <string name="enter_new_word">Enter new word...</string>
+    <string name="added_favourite">Added to favourites!</string>
+    <string name="view_favourites">View Favourites</string>
+    <string name="wreck_a_phrase">Wreck a Phrase</string>
+    <string name="my_favourites">My Favourites</string>
+    <string name="my_history">My History</string>
+    <string name="get_rhyme">Get Rhyme</string>
+    <string name="incorrect_regex">Use only alphabet characters and these punctuation marks: .,?!\'</string>
+    <string name="no_rhyme">No rhyming word found :(</string>
+    <string name="no_synonym">No synonym found :(</string>
+    <string name="send">Send</string>
+    <string name="unfavourite">Unfavourite</string>
+    <string name="created_on">Created on:&#160;</string>
+    <string name="rotation">rotation</string>
+    <string name="about">About</string>
+    <string name="message_subject">Check out this wrecked phrase</string>
+    <string name="media_type_plain_text">text/plain</string>
+    <string name="share_phrase">Share this wrecked phrase</string>
+    <string name="wreck_new_phrase">New phrase</string>
+    <string name="here_is_your_wrecked_phrase">Here is your wrecked phrase</string>
+    <string name="create_a_terrible_or_funny_phrase">Create a terrible or funny phrase</string>
+    <string name="created_by_daniel_bouzaid">Created by Daniel Bouzaid</string>
+    <string name="special_thanks_to">Special thanks to:</string>
+    <string name="credits">STANDS4 for the Rhymes API\n\n Big Huge Thesaurus for the Synonyms API\n\n Akira Aratani (github.com/AAkira) for the ExpandableLayout Library\n\n Daichi Furiya (github.com/wasabeef) for the RecyclerView-Animators Library</string>
+    <string name="intro_page_one">Type in a phrase that you\'d like to wreck</string>
+    <string name="intro_page_two">Select a word to change and input your new word to wreck with/nYou can even get help with some synonyms or rhymes</string>
+    <string name="intro_page_three">After you\'re done, you can send your newly wreck phrase to a friend!</string>
+    <string name="send_to_a_friend_or_make_another_wrecked_phrase">Send to a friend or make another wrecked phrase?</string>
+    <string name="select_a_word_to_change">Select a word to change</string>
+    <string name="enter_your_own">Enter your own new word or get a synonym or rhyme</string>
+    <string name="no_connection">No Connection found\nConnect to the internet to get a word</string>
+    <string name="empty" />
+</resources>

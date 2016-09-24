@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adapter_favourites_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/adapter_favourites_relativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/adapter_favourites_phrase_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/cardview_phrase_margin_top"
+                    android:layout_marginLeft="@dimen/cardview_phrase_margin_left_start"
+                    android:layout_marginStart="@dimen/cardview_phrase_margin_left_start"
+                    android:layout_marginTop="@dimen/cardview_phrase_margin_bottom"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/replace_me"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_toStartOf="@+id/adapter_favourites_tts_relativelayout" />
+
+                <TextView
+                    android:id="@+id/adapter_favourites_date_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/adapter_favourites_phrase_textview"
+                    android:layout_marginBottom="@dimen/cardview_phrase_margin_top"
+                    android:layout_marginLeft="@dimen/cardview_phrase_margin_left_start"
+                    android:text="@string/replace_me"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_alignEnd="@+id/adapter_favourites_phrase_textview"
+                    android:layout_alignParentStart="true" />
+
+                <RelativeLayout
+                    android:id="@+id/adapter_favourites_tts_relativelayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_toLeftOf="@+id/adapter_favourites_triangle_relativelayout"
+                    android:layout_alignTop="@id/adapter_favourites_phrase_textview"
+                    android:layout_alignBottom="@id/adapter_favourites_date_textview">
+
+                    <ImageView
+                        android:id="@+id/view_phrase_fragment_tts_imageview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_tts"
+                        android:layout_marginLeft="@dimen/triangle_view_margin"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/adapter_favourites_triangle_relativelayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@id/adapter_favourites_phrase_textview"
+                    android:layout_alignBottom="@id/adapter_favourites_date_textview">
+
+                    <View
+                        android:id="@+id/adapter_favourites_triangle_view"
+                        android:layout_width="@dimen/triangle_view_width"
+                        android:layout_height="@dimen/triangle_view_height"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle"
+                        android:layout_marginLeft="@dimen/triangle_view_margin"
+                        android:layout_marginRight="@dimen/triangle_view_margin"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                android:id="@+id/adapter_favourites_expandablelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/adapter_favourites_relativelayout"
+                android:orientation="vertical"
+                app:ael_duration="400"
+                app:ael_expanded="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/adapter_favourites_send_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/send" />
+
+                    <Button
+                        android:id="@+id/adapter_favourites_unfavourite_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/unfavourite" />
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
