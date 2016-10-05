@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
- * Created by Boozy on 4/06/2016.
+ * RhymeParserHelper class
+ *
+ * Used to parse the XML file containing the rhymes
  */
 public class RhymeParserHelper {
 
@@ -17,6 +19,11 @@ public class RhymeParserHelper {
 
     }
 
+    /**
+     * Traverses the given input stream and retrieves the data about rhymes
+     * @param inputStream
+     * @return the List of rhymes
+     */
     public ArrayList<String> parse(InputStream inputStream) {
 
         XmlPullParserFactory factory;
@@ -27,20 +34,24 @@ public class RhymeParserHelper {
             factory.setNamespaceAware(true);
             parser = factory.newPullParser();
 
+            // Give the parse the inputstream to traverse
             parser.setInput(inputStream, null);
 
             int eventType = parser.getEventType();
             String tagName;
             String currentTag = null;
 
+            //Start traversing the XML file
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 tagName = parser.getName();
                 switch (eventType) {
                     case XmlPullParser.START_TAG:
+                        // Save the tagname to use later
                         currentTag = tagName;
                         break;
                     case XmlPullParser.TEXT:
-                        if (currentTag.equals("rhymes")){
+                        // If the tag is related to rhymes, retrieve the data and split
+                        if (currentTag.equals(Constants.RHYMES_TAG)){
                             words = splitRhymeWords(parser.getText());
                         }
                         break;
@@ -54,9 +65,15 @@ public class RhymeParserHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // Return the list of rhymes
         return words;
     }
 
+    /**
+     * Due to the nature of the XML file for rhymes, they must be split into an array and trimmed
+     * @param rhymeWords
+     * @return
+     */
     private ArrayList<String> splitRhymeWords(String rhymeWords){
         String[] wordsArray = rhymeWords.split(",");
         ArrayList<String> wordsList = new ArrayList<>();

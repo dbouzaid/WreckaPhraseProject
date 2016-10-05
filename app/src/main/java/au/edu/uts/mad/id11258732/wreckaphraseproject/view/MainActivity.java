@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import au.edu.uts.mad.id11258732.wreckaphraseproject.helper.Constants;
@@ -24,12 +23,24 @@ import au.edu.uts.mad.id11258732.wreckaphraseproject.fragment.InputPhraseFragmen
 import au.edu.uts.mad.id11258732.wreckaphraseproject.fragment.ViewPhraseFragment;
 import au.edu.uts.mad.id11258732.wreckaphraseproject.adapter.WordsAdapter;
 
+/**
+ * MainActivity Class
+ * This class acts as the main activity on startup for the Wreck a Phrase application
+ * It handles what is displayed on the screen, implements listeners to
+ * act upon to invoke certain methods, manages fragment transitions
+ * and implements methods used to communicate between fragments
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         InputPhraseFragment.OnSubmitPhraseListener, WordsAdapter.OnWordChosenToEditListener,
         EditWordFragment.OnNewWordSubmittedListener, EditPhraseFragment.OnFinalisePhrase,
         ViewPhraseFragment.OnChangeFromViewPhraseFragment {
 
+    /**
+     * Called when the activity has been created
+     * Sets up the toolbar and navigation drawer and the first fragment to be viewed.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +61,23 @@ public class MainActivity extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-
+        //Show the inputphrasefragment on startup
         changeToInputPhraseFragment();
 
     }
 
+    /**
+     * Used to commit the fragment transactions
+     * @param fragment to be displayed
+     * @param animationType type of animation to use
+     */
     public void setFragment(Fragment fragment, int animationType) {
         FragmentManager fm = getSupportFragmentManager();
         if (fm.findFragmentById(R.id.fragment_container) == null) {
+            // No fragment was found in the container, so just commit
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         } else {
+            // Fragment was found, replace the old fragment and add the animation
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             setFragmentTransitionAnimation(transaction, animationType);
             transaction.replace(R.id.fragment_container, fragment);
@@ -69,16 +87,20 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Sets the animation based on what animation type was passed through
+     * @param transaction
+     * @param animationType
+     */
     public void setFragmentTransitionAnimation (FragmentTransaction transaction, int animationType){
-        Log.i(Constants.TAG, "Changing animation");
         switch (animationType){
-            case 0:
+            case Constants.UPWARD_TRANSITION:
                 transaction.setCustomAnimations(R.anim.slide_up_in, R.anim.slide_up_out);
                 break;
-            case 1:
+            case Constants.FORWARD_TRANSITION:
                 transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out);
                 break;
-            case 2:
+            case Constants.BACKWARD_TRANSITION:
                 transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_right_out);
                 break;
             default:
@@ -87,6 +109,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Handles if the back button was pressed while the drawer was open
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -99,6 +124,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Performs the methods based on which menu item was selected
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -120,72 +150,111 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Used to change to the About fragment and change title
+     */
     private void changeToAboutFragment() {
         setTitle(R.string.about);
         AboutFragment aboutFragment = new AboutFragment();
         setFragment(aboutFragment, Constants.UPWARD_TRANSITION);
     }
 
+    /**
+     * Used to change to view My Favourites and change title
+     */
     private void changeToFavouriteFragment() {
         setTitle(R.string.my_favourites);
         FavouritesFragment favouritesFragment = new FavouritesFragment();
         setFragment(favouritesFragment, Constants.UPWARD_TRANSITION);
     }
 
+    /**
+     * Used to change the view to the InputPhraseFragment and change title
+     */
     private void changeToInputPhraseFragment() {
         setTitle(R.string.wreck_a_phrase);
         InputPhraseFragment inputPhraseFragment = new InputPhraseFragment();
         setFragment(inputPhraseFragment, Constants.UPWARD_TRANSITION);
     }
 
+    /**
+     * Bundles the data passed back by the inputphrasefragment to be sent to EditPhraseFragment
+     * to edit the passed phrase
+     * @param phrase submitted to be edited
+     * @param transitionType animation type
+     */
     @Override
     public void onSubmitPhrase(String phrase, int transitionType) {
         // Create a bundle to send the phrase to the EditPhraseFragment
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PHRASE, phrase);
 
-        // Create the EditPhraseFragment and transaction
+        // Create the EditPhraseFragment and start transaction
         EditPhraseFragment editPhraseFragment = new EditPhraseFragment();
         editPhraseFragment.setArguments(bundle);
         setFragment(editPhraseFragment, transitionType);
     }
 
+    /**
+     * Bundles the data passed to send to the EditWordFragment
+     * @param phrase
+     * @param word
+     * @param position
+     */
     @Override
     public void onWordChosenToEdit(String phrase, String word, int position) {
+        // Create a bundle to send the phrase to the EditWordFragment
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PHRASE, phrase);
         bundle.putString(Constants.WORD, word);
         bundle.putInt(Constants.POSITION, position);
 
+        // Create the EditWordFragment and start transaction
         EditWordFragment editWordFragment = new EditWordFragment();
         editWordFragment.setArguments(bundle);
         setFragment(editWordFragment, Constants.FORWARD_TRANSITION);
     }
 
+    /**
+     * Calls the onSubmitPhrase method to swap to EditPhraseFragment with the current edited phrase
+     * @param phrase
+     */
     @Override
     public void newWordSubmitted(String phrase) {
         onSubmitPhrase(phrase, Constants.BACKWARD_TRANSITION);
     }
 
+    /**
+     * Bundles the data passed to start the ViewPhraseFragment
+     * @param phrase
+     * @param date
+     */
     @Override
     public void finalisePhrase(String phrase, long date) {
-        Log.i(Constants.TAG, "Changing to view phrase now");
+        // Create a bundle to send the phrase to the ViewPhraseFragment
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PHRASE, phrase);
         bundle.putLong(Constants.CREATION_DATE, date);
 
+        // Create the ViewPhraseFragment and start transaction
         ViewPhraseFragment viewPhraseFragment = new ViewPhraseFragment();
         viewPhraseFragment.setArguments(bundle);
         setFragment(viewPhraseFragment, Constants.FORWARD_TRANSITION);
     }
 
+    /**
+     * Creates a new input phrase fragment to with the backward transition
+     */
     @Override
     public void createNewPhrase() {
-        Log.i(Constants.TAG, "NEW PHRASE LEGOO");
+        // Create the InputPhraseFragment and start transaction
         InputPhraseFragment inputPhraseFragment = new InputPhraseFragment();
         setFragment(inputPhraseFragment, Constants.BACKWARD_TRANSITION);
     }
 
+    /**
+     * Opens up the FavouritesFragment
+     */
     @Override
     public void viewFavourites() {
         changeToFavouriteFragment();

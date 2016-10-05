@@ -15,13 +15,25 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.LandingAnimator;
 
 /**
- * Created by Boozy on 31/05/2016.
+ * FavouritesFragment Class
+ * <p>
+ * Used to display the view of the list of their favourite phrases
  */
 public class FavouritesFragment extends Fragment {
 
+    // Recycler view to displa the favourites
     private RecyclerView mRecyclerViewFavourites;
+    // Adapter to bind the data to the RecyclerView
     private FavouritesAdapter mFavouritesAdapter;
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return the view to be displayed
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View myFragmentView = inflater.inflate(R.layout.fragment_favourites, container, false);
@@ -30,6 +42,7 @@ public class FavouritesFragment extends Fragment {
         mRecyclerViewFavourites.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerViewFavourites.setItemAnimator(new LandingAnimator());
 
+        // Retrieve favourites from database
         PhraseManager phraseManager = PhraseManager.getInstance(getActivity());
         mFavouritesAdapter = new FavouritesAdapter(phraseManager.getFavourites(), getActivity());
         mRecyclerViewFavourites.setAdapter(new ScaleInAnimationAdapter(mFavouritesAdapter));

@@ -1,20 +1,22 @@
 package au.edu.uts.mad.id11258732.wreckaphraseproject.helper;
 
 /**
- * Created by Daniel on 18/05/2016.
+ * All Keys and constants used by the application are kept in this class
  */
 public class Constants {
 
     public static final String TAG = "WAP";
 
-    public static final String PHRASE_REGEX = "[A-Za-z.,?'! ]+";
+    public static final String PHRASE_REGEX = "[A-Za-z.,?'!\\- ]+";
     public static final String PUNCTUATION_REGEX = "[.,?'!]";
+    public static final String EMPTY_REGEX = "[ ]+";
 
     public static final String WORD_TO_CHANGE = "wordToChange";
     public static final String TYPE_OF_CHANGE = "typeOfChange";
     public static final String NEW_WORD_RECEIVED = "newWordReceived";
     public static final int GET_SYNONYM = 1;
     public static final int GET_RHYME = 2;
+    public static final String RHYMES_TAG = "rhymes";
 
     public static final String PHRASE = "phrase";
     public static final String CREATION_DATE = "creationDate";

@@ -8,14 +8,20 @@ import java.util.ArrayList;
 import au.edu.uts.mad.id11258732.wreckaphraseproject.model.Phrase;
 
 /**
- * Created by Boozy on 31/05/2016.
+ * PhraseManager Class
+ * ​A singleton class class that holds the list of
+ * phrases and interacts with the MyDatabaseHelper class to load
+ * and store data.
  */
 public class PhraseManager {
 
+    // Instance of PhraseManager
     private static PhraseManager sInstance;
 
+    // List of favourite phrases
     private ArrayList<Phrase> mFavourites;
 
+    // Reference to database
     private PhraseDatabaseHelper mDbHelper;
 
     public static PhraseManager getInstance(Context context) {
@@ -26,21 +32,28 @@ public class PhraseManager {
     }
 
     private PhraseManager(Context context) {
-        Log.i(Constants.TAG, "Getting helper");
         mDbHelper = new PhraseDatabaseHelper(context);
-        Log.i(Constants.TAG, "Getting favourites from helper");
         mFavourites = mDbHelper.getFavourites();
     }
 
+    /**
+     * Add Phrase to the beginning of the list and to the database
+     *
+     * @param phrase
+     */
     public void addFavourite(Phrase phrase) {
         mFavourites.add(0, phrase);
         mDbHelper.addFavourite(phrase);
-        Log.i(Constants.TAG, "Added to favourites");
     }
 
+    /**
+     * Delete the phrase from the list of phrases and database
+     *
+     * @param phraseToRemove
+     */
     public void removeFavourite(Phrase phraseToRemove) {
         for (Phrase phrase : mFavourites) {
-            if (phrase.getId() == phraseToRemove.getId()){
+            if (phrase.getId() == phraseToRemove.getId()) {
                 mFavourites.remove(phrase);
                 break;
             }
@@ -48,6 +61,9 @@ public class PhraseManager {
         mDbHelper.removeFavourite(phraseToRemove);
     }
 
+    /**
+     * @return the list of favourite phrases
+     */
     public ArrayList<Phrase> getFavourites() {
         return mFavourites;
     }

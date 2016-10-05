@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +17,34 @@ import au.edu.uts.mad.id11258732.wreckaphraseproject.model.Phrase;
 import au.edu.uts.mad.id11258732.wreckaphraseproject.R;
 import au.edu.uts.mad.id11258732.wreckaphraseproject.adapter.WordsAdapter;
 
+/**
+ * EditPhraseFragment Class
+ *
+ * Used to display the View that allows the user to Edit a Phrase of the class
+ * Allows the user to select one word to edit.
+ */
 public class EditPhraseFragment extends Fragment implements View.OnClickListener {
 
+    // Phrase to be used to display the words to edit
     private Phrase mPhrase;
+    // The RecyclerView to display the Words to edit
     private RecyclerView mWordsRecyclerView;
+    //The Adapter to bind to display the Words
     private WordsAdapter mWordsAdapter;
+    //Used to finish editing a phrase
     private Button mButtonFinalise;
 
     public EditPhraseFragment() {
     }
 
-
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return the view to be displayed
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,25 +65,37 @@ public class EditPhraseFragment extends Fragment implements View.OnClickListener
         return myFragmentView;
     }
 
+    /**
+     * Invoked when an element in the RecyclerView is pressed
+     * and determines what to do based on what view was clicked
+     *
+     * @param v What view was clicked
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edit_phrase_fragment_submit_button: {
+                // Notify that the phrase is done with editting and move to view it
                 mPhrase.setCreationDate(getDate());
-                Log.i(Constants.TAG, "Got Date");
                 ((OnFinalisePhrase) getActivity()).finalisePhrase(mPhrase.buildPhrase(), mPhrase.getCreationDate());
-                Log.i(Constants.TAG, "Finalised Phrase");
                 break;
             }
         }
     }
 
+    /**
+     * Get the current date so we know when the phrase was made
+     * @return current date of phrase creation
+     */
     public long getDate() {
         Calendar cal = Calendar.getInstance();
         long date = cal.getTimeInMillis();
         return date;
     }
 
+    /**
+     * Interface to communicate between Activity and Fragment
+     */
     public interface OnFinalisePhrase {
         void finalisePhrase(String phrase, long date);
     }
